@@ -1,13 +1,12 @@
-import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { loadGames } from "./actions/gamesAction";
-const App = () => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(loadGames(process.env.REACT_APP_API_KEY));
-  }, [dispatch]);
+import React, { Fragment } from "react";
+import Routes from "./component/Routes";
 
-  return <div></div>;
+const App = () => {
+  return (
+    <Fragment>
+      <Routes />
+    </Fragment>
+  );
 };
 
 export default App;
