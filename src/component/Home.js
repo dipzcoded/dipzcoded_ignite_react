@@ -14,23 +14,48 @@ const Home = () => {
   const { upcoming, newGames, popular } = games;
   console.log(upcoming, newGames, popular);
 
+  const upcomingGamesGrid = upcoming.map((game) => (
+    <Game
+      key={game.id}
+      name={game.name}
+      released={game.released}
+      id={game.id}
+      image={game.background_image}
+    />
+  ));
+
+  const popularGamesGrid = popular.map((game) => (
+    <Game
+      key={game.id}
+      name={game.name}
+      released={game.released}
+      id={game.id}
+      image={game.background_image}
+    />
+  ));
+
+  const newGamesGrid = newGames.map((game) => (
+    <Game
+      key={game.id}
+      name={game.name}
+      released={game.released}
+      id={game.id}
+      image={game.background_image}
+    />
+  ));
   return (
     <GameList>
       <h2>Upcoming Games</h2>
       <Games>
-        {upcoming.length > 0 ? (
-          upcoming.map((game) => (
-            <Game
-              key={game.id}
-              name={game.name}
-              released={game.released}
-              id={game.id}
-              image={game.background_image}
-            />
-          ))
-        ) : (
-          <h1>fetching data....</h1>
-        )}
+        {upcoming.length > 0 ? upcomingGamesGrid : <h1>fetching data....</h1>}
+      </Games>
+      <h2>Popular Games</h2>
+      <Games>
+        {popular.length > 0 ? popularGamesGrid : <h1>fetching data....</h1>}
+      </Games>
+      <h2>new Games</h2>
+      <Games>
+        {newGames.length > 0 ? newGamesGrid : <h1>fetching data....</h1>}
       </Games>
     </GameList>
   );
