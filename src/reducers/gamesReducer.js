@@ -1,9 +1,11 @@
-import { FETCH_GAMES } from "../types";
+import { FETCH_GAMES, GET_DETAIL } from "../types";
 const initialState = {
   popular: [],
   newGames: [],
   upcoming: [],
   filtered: null,
+  details: {},
+  gameScreenshot: null,
 };
 
 const gamesReducer = (state = initialState, action) => {
@@ -15,6 +17,13 @@ const gamesReducer = (state = initialState, action) => {
         popular: payload.popular,
         newGames: payload.newGames,
         upcoming: payload.upcoming,
+      };
+
+    case GET_DETAIL:
+      return {
+        ...state,
+        details: payload.details,
+        gameScreenshot: payload.gameScreenshot,
       };
 
     default:

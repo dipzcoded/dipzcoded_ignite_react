@@ -1,18 +1,18 @@
-import React, { useEffect } from "react";
+import React, { useEffect, memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { loadGames } from "../actions/gamesAction";
 import Game from "./Game";
 import styled from "styled-components";
 import { motion } from "framer-motion";
+const areEqual = (prevProps, nextProps) => true;
 
-const Home = () => {
+const Home = memo(() => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(loadGames(process.env.REACT_APP_API_KEY));
   }, [dispatch]);
   const games = useSelector((state) => state.games);
   const { upcoming, newGames, popular } = games;
-  console.log(upcoming, newGames, popular);
 
   const upcomingGamesGrid = upcoming.map((game) => (
     <Game
@@ -59,7 +59,7 @@ const Home = () => {
       </Games>
     </GameList>
   );
-};
+}, areEqual);
 
 const GameList = styled(motion.div)`
   padding: 0rem 5rem;

@@ -1,17 +1,29 @@
-import React from "react";
+import React, { memo } from "react";
 // styling and animation
 import styled from "styled-components";
 import { motion } from "framer-motion";
+// redux
+import { useDispatch, useSelector } from "react-redux";
+import { loadDetails } from "../actions/gamesAction";
+const areEqual = (prevProps, nextProps) => true;
 
-const Game = ({ name, id, released, image }) => {
+const Game = memo(({ name, id, released, image }) => {
+  const dispatch = useDispatch();
+  const games = useSelector((state) => state.games);
+  const { details } = games;
+
+  const loadDetailHandler = () => {
+    dispatch(loadDetails(id, process.env.REACT_APP_API_KEY));
+  };
+
   return (
-    <StyledGame>
+    <StyledGame onClick={loadDetailHandler}>
       <h3>{name}</h3>
       <p>{released}</p>
       <img src={image} alt={name} />
     </StyledGame>
   );
-};
+}, areEqual);
 
 const StyledGame = styled(motion.div)`
   min-height: 30vh;
