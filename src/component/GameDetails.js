@@ -6,6 +6,14 @@ import { motion } from "framer-motion";
 import { useSelector } from "react-redux";
 import { smallImage } from "../utils";
 import { useHistory } from "react-router-dom";
+// images
+import playstation from "../img/playstation.svg";
+import steam from "../img/steam.svg";
+import nintendo from "../img/nintendo.svg";
+import xbox from "../img/xbox.svg";
+import apple from "../img/apple.svg";
+import gamepad from "../img/gamepad.svg";
+import StarRatings from "react-star-ratings";
 
 const GameDetails = ({ pathId }) => {
   const { push } = useHistory();
@@ -16,6 +24,25 @@ const GameDetails = ({ pathId }) => {
       push("/");
     }
   };
+
+  const getPlatformImages = (platform) => {
+    switch (platform) {
+      case "PlayStation 4" || "PlayStation 5":
+        return playstation;
+      case "Xbox One":
+        return xbox;
+      case "PC":
+        return steam;
+      case "Nintendo Switch":
+        return nintendo;
+      case "iOS":
+        return apple;
+      default:
+        return gamepad;
+    }
+  };
+
+  console.log(details.platforms);
   return (
     <CardShadow className="shadow" onClick={exitDetail}>
       <Detail layoutId={pathId}>
@@ -26,7 +53,17 @@ const GameDetails = ({ pathId }) => {
               <motion.h3 layoutId={`title ${pathId}`}>{details.name}</motion.h3>
             )}
             {details !== null && details.rating > -1 && (
-              <p>Rating : {details.rating}</p>
+              <p>
+                Rating :{" "}
+                <StarRatings
+                  rating={details.rating}
+                  starRatedColor="yellow"
+                  numberOfStars={5}
+                  name="rating"
+                  starDimension="28px"
+                  starSpacing="5px"
+                />
+              </p>
             )}
           </div>
           {/* info */}
@@ -36,7 +73,11 @@ const GameDetails = ({ pathId }) => {
                 <h3>Platforms</h3>
                 <Platforms>
                   {details.platforms.map(({ platform }) => (
-                    <h3 key={platform.id}>{platform.name}</h3>
+                    <img
+                      key={platform.id}
+                      src={getPlatformImages(platform.name)}
+                      alt={platform.name}
+                    ></img>
                   ))}
                 </Platforms>
               </Fragment>
@@ -83,6 +124,7 @@ const CardShadow = styled(motion.div)`
   position: fixed;
   top: 0;
   left: 0;
+  z-index: 5;
   &::-webkit-scrollbar {
     width: 0.5rem;
   }
@@ -103,6 +145,7 @@ const Detail = styled(motion.div)`
   position: absolute;
   left: 10%;
   color: black;
+  z-index: 10;
   img {
     width: 100%;
   }

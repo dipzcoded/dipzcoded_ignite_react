@@ -7,7 +7,6 @@ import {
   gameDetailsUrl,
   gameSceenshotUrl,
 } from "../api";
-
 const clearGameDetail = () => async (dispatch) => {
   dispatch({
     type: CLEAR_DETAIL,
@@ -16,6 +15,7 @@ const clearGameDetail = () => async (dispatch) => {
 
 export const loadGames = (apikey) => async (dispatch) => {
   try {
+    dispatch(clearGameDetail());
     const popularGamesData = await axios.get(popularGamesUrl(apikey));
     console.log(popularGamesUrl(apikey));
     const newGamesData = await axios.get(newGamesUrl(apikey));
