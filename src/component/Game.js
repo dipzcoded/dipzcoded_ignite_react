@@ -1,29 +1,37 @@
-import React, { memo } from "react";
+import React from "react";
 // styling and animation
 import styled from "styled-components";
 import { motion } from "framer-motion";
 // redux
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { loadDetails } from "../actions/gamesAction";
-const areEqual = (prevProps, nextProps) => true;
+import { Link } from "react-router-dom";
+import { smallImage } from "../utils";
 
-const Game = memo(({ name, id, released, image }) => {
+const Game = ({ name, id, released, image, type, onChangeGameType }) => {
   const dispatch = useDispatch();
-  const games = useSelector((state) => state.games);
-  const { details } = games;
+  const pathId = id.toString();
 
   const loadDetailHandler = () => {
     dispatch(loadDetails(id, process.env.REACT_APP_API_KEY));
+    document.body.style.overflow = "hidden";
+    onChangeGameType(type);
   };
 
   return (
-    <StyledGame onClick={loadDetailHandler}>
-      <h3>{name}</h3>
-      <p>{released}</p>
-      <img src={image} alt={name} />
+    <StyledGame layoutId={`${pathId}-${type}`} onClick={loadDetailHandler}>
+      <Link to={`/game/${id}`}>
+        <motion.h3 layoutId={`title ${pathId}-${type}`}>{name}</motion.h3>
+        <p>{released}</p>
+        <motion.img
+          layoutId={`image ${pathId}-${type}`}
+          src={smallImage(image, 640)}
+          alt={name}
+        />
+      </Link>
     </StyledGame>
   );
-}, areEqual);
+};
 
 const StyledGame = styled(motion.div)`
   min-height: 30vh;
@@ -31,6 +39,7 @@ const StyledGame = styled(motion.div)`
   text-align: center;
   border-radius: 1rem;
   overflow: hidden;
+  cursor: pointer;
   img {
     width: 100%;
     height: 40vh;
