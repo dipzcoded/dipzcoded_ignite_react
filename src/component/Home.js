@@ -18,7 +18,14 @@ const Home = () => {
     dispatch(loadGames(process.env.REACT_APP_API_KEY));
   }, [dispatch]);
   const games = useSelector((state) => state.games);
-  const { upcoming, newGames, popular, details, gameScreenshot } = games;
+  const {
+    upcoming,
+    newGames,
+    popular,
+    details,
+    gameScreenshot,
+    filtered,
+  } = games;
 
   const onChangeGameType = (type) => {
     setGameType(type);
@@ -69,24 +76,48 @@ const Home = () => {
             <GameDetails pathId={GamePathId} />
           )}
         </AnimatePresence>
-        <h2>Upcoming Games</h2>
-        <Fragment>
-          <Games>
-            {upcoming.length > 0 ? (
-              upcomingGamesGrid
-            ) : (
-              <h1>fetching data....</h1>
-            )}
-          </Games>
-          <h2>Popular Games</h2>
-          <Games>
-            {popular.length > 0 ? popularGamesGrid : <h1>fetching data....</h1>}
-          </Games>
-          <h2>new Games</h2>
-          <Games>
-            {newGames.length > 0 ? newGamesGrid : <h1>fetching data....</h1>}
-          </Games>
-        </Fragment>
+        {filtered !== null && filtered.length > 0 ? (
+          <Fragment>
+            <h2>Filtered Games</h2>
+            <Games>
+              {filtered.map((game) => (
+                <Game
+                  key={game.id}
+                  name={game.name}
+                  released={game.released}
+                  id={game.id}
+                  image={game.background_image}
+                  type="filtered"
+                  onChangeGameType={onChangeGameType}
+                />
+              ))}
+            </Games>
+          </Fragment>
+        ) : (
+          <Fragment>
+            <h2>Upcoming Games</h2>
+
+            <Games>
+              {upcoming.length > 0 ? (
+                upcomingGamesGrid
+              ) : (
+                <h1>fetching data....</h1>
+              )}
+            </Games>
+            <h2>Popular Games</h2>
+            <Games>
+              {popular.length > 0 ? (
+                popularGamesGrid
+              ) : (
+                <h1>fetching data....</h1>
+              )}
+            </Games>
+            <h2>new Games</h2>
+            <Games>
+              {newGames.length > 0 ? newGamesGrid : <h1>fetching data....</h1>}
+            </Games>
+          </Fragment>
+        )}
       </AnimateSharedLayout>
     </GameList>
   );

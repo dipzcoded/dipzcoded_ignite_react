@@ -42,7 +42,6 @@ const GameDetails = ({ pathId }) => {
     }
   };
 
-  console.log(details.platforms);
   return (
     <CardShadow className="shadow" onClick={exitDetail}>
       <Detail layoutId={pathId}>

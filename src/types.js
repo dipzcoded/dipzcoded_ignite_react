@@ -1,3 +1,5 @@
 export const FETCH_GAMES = "FETCH_GAMES";
 export const GET_DETAIL = "GET_DETAIL";
 export const CLEAR_DETAIL = "CLEAR_DETAIL";
+export const FILTERED_GAMES = "FILTERED_GAMES";
+export const CLEAR_FILTERED = "CLEAR_FILTERED";

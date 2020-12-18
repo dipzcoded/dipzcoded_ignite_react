@@ -38,6 +38,8 @@ export const upcomingGamesUrl = (apikey) =>
   `${baseUrl}${upcomingGames.replace("YOUR_API_KEY", apikey)}`;
 export const newGamesUrl = (apikey) =>
   `${baseUrl}${newGames.replace("YOUR_API_KEY", apikey)}`;
+export const searchGamesUrl = (gameName, apikey) =>
+  `${baseUrl}games?key=${apikey}&search=${gameName}&page_size=9 `;
 
 // GAME DETAILS
 export const gameDetailsUrl = (id, apikey) =>

@@ -7,9 +7,9 @@ const GlobalStyles = createGlobalStyle`
     box-sizing : border-box;
 }
 
-html: {
+html {
     &::-webkit-scrollbar {
-        width: 0.1rem;
+        width: 0.4rem;
       };
     &::-webkit-scrollbar-thumb {
         background-color : darkgrey;
@@ -43,9 +43,14 @@ a {
     text-decoration : none;
     color : #333;
 }
-img : {
+img {
     display : block;
    
+}
+
+input {
+    font-weight: bold;
+    font-family: "Montserrat", sans-serif;
 }
 `;
 
