@@ -6,6 +6,7 @@ import Game from "./Game";
 import styled from "styled-components";
 import { motion, AnimatePresence, AnimateSharedLayout } from "framer-motion";
 import GameDetails from "./GameDetails";
+import { fadeIn, popup } from "../animation";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -69,7 +70,7 @@ const Home = () => {
   ));
 
   return (
-    <GameList>
+    <GameList variants={fadeIn} initial="hidden" animate="show">
       <AnimateSharedLayout type="crossfade">
         <AnimatePresence>
           {pathId && details !== null && gameScreenshot !== null && (

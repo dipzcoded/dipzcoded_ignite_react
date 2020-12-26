@@ -5,6 +5,7 @@ import logoIcon from "../img/logo.svg";
 import { filteredGames } from "../actions/gamesAction";
 import { useDispatch } from "react-redux";
 import { CLEAR_FILTERED } from "../types";
+import { fadeIn } from "../animation";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ const Navbar = () => {
   };
 
   return (
-    <StyledNav>
+    <StyledNav variants={fadeIn} initial="hidden" animate="show">
       <Logo onClick={() => dispatch({ type: CLEAR_FILTERED })}>
         <img src={logoIcon} alt="logo " />
         <h1>Ignite</h1>
